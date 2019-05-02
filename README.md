@@ -6,3 +6,6 @@ Proyecto de la asignatura de Sistemas Distribuidos, en el cual utilizamos Twitte
 Ignacio
 
 Jordi Güeto Matavera
+
+##Lenguaje utilizado
+Python
