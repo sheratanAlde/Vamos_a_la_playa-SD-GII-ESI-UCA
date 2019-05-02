@@ -6,6 +6,8 @@ if __name__ == "__main__":
     # dato = elTiempo.infoPlaya(1101203)
     # print(dato)
 
-    elTiempo.infoPlaya(1101203)
+    #elTiempo.infoPlaya(1101203)
     #laPlaya.datosPlaya()
-    laRuta.tiempoDistanciaRuta("San Fernando","Puerto Real")
+    #laRuta.tiempoDistanciaRuta("San Fernando","Puerto Real")
+
+    laRuta.sitioCoordenadas("Medina")

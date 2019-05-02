@@ -1,15 +1,21 @@
 # -*- coding: utf-8 -*-
-import overpass
 import json
 import requests
 
+API_KEY = '5b3ce3597851110001cf6248e3895e67daf9425ba50b55fb0df395d6'
+
 def sitioCoordenadas(sitio):
-    api = overpass.API()
+    headers = {
+        'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
+    }
+    call = requests.get(
+        'https://api.openrouteservice.org/geocode/search?api_key='+ API_KEY +'&text=San%20Fernando&boundary.country=ES',
+        headers=headers)
 
-    response = api.get('node["is_in:municipality"="' + sitio + '"]["place"]', responseformat="json")
+    print(call.status_code, call.reason)
+    print(call.text)
 
-    #print(response)
-    string_data = json.dumps(response)
+    string_data = json.dumps(call.json())
     decode = json.loads(string_data)
 
     return decode
@@ -23,7 +29,7 @@ def tiempoDistanciaRuta(origen, destino):
             "metrics":["distance","duration"],"resolve_locations":"true","units":"km"}
 
     headers = {'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
-               'Authorization': '5b3ce3597851110001cf6248e3895e67daf9425ba50b55fb0df395d6'}
+               'Authorization': API_KEY}
 
     call = requests.post('https://api.openrouteservice.org/v2/matrix/driving-car', json=body, headers=headers)
 
@@ -41,13 +47,3 @@ def tiempoDistanciaRuta(origen, destino):
 #https://api.openrouteservice.org/geocode/search?api_key=5b3ce3597851110001cf6248e3895e67daf9425ba50b55fb0df395d6&text=San%20Fernando&boundary.country=ES
 #https://github.com/mvexel/overpass-api-python-wrapper
 #https://github.com/cglacet/osrm_plus
-
-import requests
-
-headers = {
-    'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
-}
-call = requests.get('https://api.openrouteservice.org/geocode/search?api_key=5b3ce3597851110001cf6248e3895e67daf9425ba50b55fb0df395d6&text=San%20Fernando&boundary.country=ES', headers=headers)
-
-print(call.status_code, call.reason)
-print(call.text)
