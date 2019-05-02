@@ -9,6 +9,6 @@ Ignacio
 
 Jordi Güeto Matavera
 
-##Lenguaje utilizado
+## Lenguaje utilizado
 
 Python
