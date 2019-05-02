@@ -8,6 +8,9 @@ if __name__ == "__main__":
 
     #elTiempo.infoPlaya(1101203)
     #laPlaya.datosPlaya()
-    #laRuta.tiempoDistanciaRuta("San Fernando","Puerto Real")
+    try:
+        print(laRuta.tiempoDistanciaRuta("San Fernando","Madrid"))
 
-    laRuta.sitioCoordenadas("Medina")
+        #laRuta.sitioCoordenadas("Medina")
+    except:
+        print("el GPS esta recalculando")

@@ -7,13 +7,9 @@ def infoPlaya(cod):
     playa = aemet.get_prediccion_especifica_playa(cod)
     data_string = json.dumps(playa)
     decode = json.loads(data_string)
-    #print(aemet.get_prediccion(11012))
-    #print(aemet.get_municipio("Puerto Real"))
-    #print(decode)
     datosActual = decode['prediccion']['dia'][0]
 
-    #print(datosActual)
-    # if hora > 12  en 24
+    # if hora > 14  en 24
 
     #else
     cielo = datosActual['estadoCielo']['descripcion2']
