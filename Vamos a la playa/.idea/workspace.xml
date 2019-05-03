@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bb9a3d0-f42a-4c54-947c-5fd74d20e14f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/PlayaTiempo.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ficheroDatos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elTiempo.py" beforeDir="false" afterPath="$PROJECT_DIR$/elTiempo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laPlaya.py" beforeDir="false" afterPath="$PROJECT_DIR$/laPlaya.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laRuta.py" beforeDir="false" afterPath="$PROJECT_DIR$/laRuta.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/elTiempo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="45">
+              <caret line="3" column="29" lean-forward="true" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
               <folding>
                 <element signature="e#24#47#0" expanded="true" />
               </folding>
@@ -45,7 +39,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state relative-caret-position="225">
               <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -57,7 +51,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/laPlaya.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
+            <state relative-caret-position="390">
               <caret line="30" column="37" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
               <folding>
                 <element signature="e#24#39#0" expanded="true" />
@@ -69,11 +63,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ficheroDatos.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
+            <state relative-caret-position="675">
               <caret line="46" column="9" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
-              <folding>
-                <element signature="e#5#20#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -109,9 +100,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="8" />
-    <option name="width" value="1262" />
-    <option name="height" value="695" />
+    <option name="x" value="-4" />
+    <option name="width" value="964" />
+    <option name="height" value="1054" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -294,9 +285,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="8" y="0" width="1262" height="695" extended-state="0" />
+    <frame x="-4" y="0" width="964" height="1054" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49895614" visible="true" weight="0.19128329" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49895614" visible="true" weight="0.25187567" />
       <window_info id="Structure" order="1" sideWeight="0.50104386" side_tool="true" weight="0.12493411" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -308,7 +299,7 @@
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49973643" weight="0.329718" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49973643" weight="0.329718" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49762782" weight="0.3275488" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.26553673" side_tool="true" visible="true" weight="0.47971782" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.26553673" side_tool="true" visible="true" weight="0.29392624" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49973643" weight="0.329718" />
       <window_info anchor="bottom" id="GitHub Pull Requests" order="11" sideWeight="0.49973643" weight="0.329718" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -374,7 +365,7 @@
     <entry file="file://$PROJECT_DIR$/venv/lib/python3.6/site-packages/osrm_plus/__init__.py" />
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
+        <state relative-caret-position="225">
           <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
@@ -382,13 +373,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/laPlaya.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="30" column="37" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
+          <folding>
+            <element signature="e#24#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ficheroDatos.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
+        <state relative-caret-position="675">
           <caret line="46" column="9" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
-          <folding>
-            <element signature="e#5#20#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -402,20 +400,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/laPlaya.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="37" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
-          <folding>
-            <element signature="e#24#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/elTiempo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        <state relative-caret-position="45">
+          <caret line="3" column="29" lean-forward="true" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
           <folding>
             <element signature="e#24#47#0" expanded="true" />
           </folding>
