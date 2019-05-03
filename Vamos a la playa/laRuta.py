@@ -23,16 +23,14 @@ def sitioCoordenadas(sitio):
 
     gps = decode['features'][0]['geometry']['coordinates']
 
-    print(gps)
-
-    return gps
+    if (str(gps) == '[-5.883249, 36.55139]'):
+        return "no se ha encontrado la población"
+    else:
+        return gps
 
 def tiempoDistanciaRuta(origen, destino):
-    poblacion = sitioCoordenadas(origen)
-    playa = sitioCoordenadas(destino)
-
-    if(str(poblacion) == '[-5.883249, 36.55139]'):
-        return "no se ha encontrado la población"
+    poblacion = origen
+    playa = destino
 
     body = {"locations": [poblacion, playa],
             "metrics":["distance","duration"],"resolve_locations":"true","units":"km"}
