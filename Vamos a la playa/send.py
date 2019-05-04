@@ -1,6 +1,6 @@
 import pika
 import sys
-import LectorTwitter
+import Tw_lector
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
