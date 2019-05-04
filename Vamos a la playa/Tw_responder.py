@@ -1,5 +1,5 @@
 import tweepy
-import LectorTwitter
+import tw_lector
 #import urllib2
 
 def Tw_responder(tweetRecibido):
