@@ -1,12 +1,7 @@
-# utf-8
 import tweepy
 import LectorTwitter
-import urllib2
+#import urllib2
 
-######################Constantes#######################
-url = "http://localhost:8080/????/"
-
-######################Twittear respuesta#######################
 def Tw_responder(tweetRecibido):
 
     mencion = Tw_lector.obtenerMencion(tweetRecibido)
@@ -28,7 +23,6 @@ def Tw_responder(tweetRecibido):
     tweet = mencion + " te recomendamos ir a " + playaRecomendada +
     "(a " + tiempoQueTarda + " min " + distanciaQueHay + " - km) y las condiciones climatologicas son: +
     " viento " + viento + " radiacion uv " + radiacion + "y está " + cielo 
-
 
     api = Tw_lector.autentificarTwitter()
     api.update_status(tweet)
