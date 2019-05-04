@@ -1,5 +1,5 @@
 import tweepy
-import LectorTwitter
+import Tw_lector
 
 def Tw_ComandoInvalido(tweetRecibido):
     mencion = Tw_lector.obtenerMencion(tweetRecibido)
