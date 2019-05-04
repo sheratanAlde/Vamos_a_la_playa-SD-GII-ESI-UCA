@@ -2,8 +2,10 @@
 import json
 import requests
 
-API_KEY = '5b3ce3597851110001cf6248e3895e67daf9425ba50b55fb0df395d6'
+API_KEY = '5b3ce3597851110001cf6248e3895e67daf9425ba50b55fb0df395d6'                                                    #Key de la API
 
+
+#Indicandole el nombre de una población devuelve la posición gps de la misma(SOLO PROVINCIA DE CÁDIZ)
 def sitioCoordenadas(sitio):
     headers = {'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8'}
 
@@ -21,13 +23,16 @@ def sitioCoordenadas(sitio):
     string_data = json.dumps(call.json())
     decode = json.loads(string_data)
 
-    gps = decode['features'][0]['geometry']['coordinates']
+    gps = "["+str(decode['features'][0]['geometry']['coordinates'][1])+", "\
+          +str(decode['features'][0]['geometry']['coordinates'][0])+"]"
 
-    if (str(gps) == '[-5.883249, 36.55139]'):
+    if str(gps) == '[36.55139, -5.883249]':                                                                           #Cuando no encuentra la localidad solicitada siempre retorna esta posición, la cual devuelve como error
         return "no se ha encontrado la población"
     else:
-        return gps
+        return json.loads(gps)
 
+
+#Función que calcula la distancia y el tiempo que se tarda en realizar el camino desde el origen(dato en gps) y el destino(dato en gps)
 def tiempoDistanciaRuta(origen, destino):
     poblacion = origen
     playa = destino
@@ -43,15 +48,14 @@ def tiempoDistanciaRuta(origen, destino):
     #print(call.text)
 
     tiemoDistancia = json.dumps(call.json())
-    datosTimpoDistancia = json.loads(tiemoDistancia)
+    datosTiempoDistancia = json.loads(tiemoDistancia)
 
-    tiempo = datosTimpoDistancia['durations'][0][1]
+    tiempo = datosTiempoDistancia['durations'][0][1]
     horas = int(tiempo/3600)
     minutos = int(tiempo/60)
 
-    distancia = datosTimpoDistancia['distances'][0][1]
 
     #print("Población: " + str(poblacion))
     #print("Playa: " + str(playa))
 
-    return "está a " + str(distancia) + " Km, " + "%s:%s" % (horas,minutos) + " aprox"
+    return {"distancia": distancia, "tiempo": {"horas": horas, "minutos": minutos}}
