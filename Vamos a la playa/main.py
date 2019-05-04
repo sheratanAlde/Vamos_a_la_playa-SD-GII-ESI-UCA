@@ -2,6 +2,7 @@ import elTiempo
 import laPlaya
 import laRuta
 
+
 def calcularRespuesta(sitio, actividad):
     mensaje = "perdona, ahora estamos tomando el sol, prueba mas tarde."
 
@@ -13,9 +14,10 @@ def calcularRespuesta(sitio, actividad):
 
     return mensaje
 
+
 if __name__ == "__main__":
 
-    sitio = "Cádiz"
+    sitio = "Tarifa"
     actividad = ""
 
     respuestaTwitter = calcularRespuesta(sitio, actividad)
