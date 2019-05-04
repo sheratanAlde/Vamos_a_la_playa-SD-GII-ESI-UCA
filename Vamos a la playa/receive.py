@@ -1,5 +1,4 @@
 import pika
-import TwittearListaCompra
 import Tw_ComandoInvalido
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
