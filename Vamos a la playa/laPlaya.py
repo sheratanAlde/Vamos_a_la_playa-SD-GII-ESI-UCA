@@ -30,7 +30,7 @@ def transformacionCoordenadar(datos):
 
 #Retorna la puntuacion metereologica de una playa en caso de tener codigo de la AEMET
 def puntuacionAEMET(row, maxPuntuacionTiempo, gpsPoblacion):
-    if str(row['AEMET']).isnumeric():                                                                                       # Obtenemos la calificación del tiempo de esa playa
+    if str(row['AEMET']).isnumeric():                                                                                   # Obtenemos la calificación del tiempo de esa playa
         puntuacion = elTiempo.situacionPlaya(row['AEMET'])
         if maxPuntuacionTiempo['puntuacion'] < puntuacion:                                                              # En el caso de tener una puntuación mayor sera la elegida
             maxPuntuacionTiempo['cod'] = row['AEMET']
@@ -84,7 +84,7 @@ def calcularPlaya(origen, actividad):
     poblacion = limpiezCaracteres(origen)
 
     gpsPoblacion = laRuta.sitioCoordenadas(poblacion)
-    maxPuntuacion = {"cod": 0, "puntuacion": 0, "GPS": "",
+    maxPuntuacion = {"cod": 0, "puntuacion": 0, "GPS": "", "nombre": "",
                            "poblacion": gpsPoblacion, "KM": 0, "horas": 0, "minutos": 0,
                            "error": ""}
 
@@ -101,6 +101,7 @@ def calcularPlaya(origen, actividad):
                 if row['Población'] == poblacion:                                                                       #Comrpobamos si el usuario se encuentra en una localidad con playa
                     poblacionPlaya = True
                     codAEMET = row['AEMET']
+                    maxPuntuacion['nombre'] = row['Playa']
                     maxPuntuacion = puntuacionAEMET(row, maxPuntuacion, gpsPoblacion)
 
         if poblacionPlaya is False:
@@ -115,6 +116,7 @@ def calcularPlaya(origen, actividad):
 
                     if distancia < distanciaMenor:                                                                      #Se recomendará la playa mas cercana a la localidad
                         maxPuntuacion['cod'] = row['AEMET']
+                        maxPuntuacion['nombre'] = row['Playa']
                         maxPuntuacion['GPS'] = transformacionCoordenadar(row['GPS'])
                         distanciaMenor = distancia
 
@@ -132,25 +134,14 @@ def calcularPlaya(origen, actividad):
                 if playas.count(row['Playa']):
 
                     if row['AEMET'] != '':
+                        maxPuntuacion['nombre'] = row['Playa']
                         maxPuntuacionTiempo = puntuacionAEMET(row, maxPuntuacion, gpsPoblacion)
 
     print(maxPuntuacionTiempo)
 
-def mostrarplaya(nombre):
-    url = requests.get(url='https://apirtod.dipucadiz.es/api/datos/playas.json')
+    tiempoDistancia = "(a "
+    if maxPuntuacion['horas'] != 0:
+        tiempoDistancia += str(maxPuntuacion['horas'])+" H y "
+    tiempoDistancia+= str(maxPuntuacion['minutos'])+" min, "+str(maxPuntuacion['KM'])+" km)"
 
-    string_data = json.dumps(url.json())
-    decode = json.loads(string_data)
-
-    playas = decode['resources']
-
-    for indice in range(0,int(decode['summary']['items']),1):
-
-        if playas[indice]['ca:nombre'] == nombre:
-            municipio = playas[indice]['ca:municipio']
-            gps = "["+ playas[indice]['ca:coord_latitud']+","+ playas[indice]['ca:coord_longitud']+"]"
-            usos = playas[indice]['ca:usos']
-
-        print(municipio + ";" + nombre + ";" + gps + ";" + usos)
-
-    return
+    print("la mas cercana a tu ubicación es "+maxPuntuacion['nombre']+tiempoDistancia+", con un tiempo ")
