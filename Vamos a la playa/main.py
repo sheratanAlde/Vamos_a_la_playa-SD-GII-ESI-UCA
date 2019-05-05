@@ -8,8 +8,6 @@ def calcularRespuesta(sitio, actividad):
 
     posPlaya = laPlaya.calcularPlaya(sitio, actividad)
 
-    posPoblacion = laRuta.sitioCoordenadas(sitio)
-
     # mensaje = mensaje + laRuta.tiempoDistanciaRuta(posPoblacion,posPlaya)
 
     return mensaje
@@ -17,8 +15,8 @@ def calcularRespuesta(sitio, actividad):
 
 if __name__ == "__main__":
 
-    sitio = "Tarifa"
-    actividad = ""
+    sitio = "Benalup"
+    actividad = "piragüismo"
 
     respuestaTwitter = calcularRespuesta(sitio, actividad)
 
