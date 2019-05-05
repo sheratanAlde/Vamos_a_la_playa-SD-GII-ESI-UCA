@@ -21,6 +21,62 @@ def limpiezCaracteres(poblacion):
     return cadenaLimpia
 
 
+#Función que intercambia latitud con longitud al formato necesario para esta API
+def transformacionCoordenadar(datos):
+    gpsTransformacion = json.loads(datos)
+    return json.loads("[" + str(gpsTransformacion[1]) + ", " + str(gpsTransformacion[0]) + "]")
+
+
+
+#Retorna la puntuacion metereologica de una playa en caso de tener codigo de la AEMET
+def puntuacionAEMET(row, maxPuntuacionTiempo, gpsPoblacion):
+    if str(row['AEMET']).isnumeric():                                                                                       # Obtenemos la calificación del tiempo de esa playa
+        puntuacion = elTiempo.situacionPlaya(row['AEMET'])
+        if maxPuntuacionTiempo['puntuacion'] < puntuacion:                                                              # En el caso de tener una puntuación mayor sera la elegida
+            maxPuntuacionTiempo['cod'] = row['AEMET']
+            maxPuntuacionTiempo['puntuacion'] = puntuacion
+            maxPuntuacionTiempo['GPS'] = transformacionCoordenadar(row['GPS'])                                          # Cambiamos el orden de la coordenadas
+            ruta = laRuta.tiempoDistanciaRuta(gpsPoblacion, maxPuntuacionTiempo['GPS'])
+            if ruta['error'] == "":
+                maxPuntuacionTiempo['horas'] = ruta['tiempo']['horas']
+                maxPuntuacionTiempo['minutos'] = ruta['tiempo']['minutos']
+                maxPuntuacionTiempo['KM'] = ruta['distancia']
+            else:
+                maxPuntuacionTiempo['error'] = ruta['error']
+
+    return maxPuntuacionTiempo
+
+
+#Función que nos retorna las playas que tienen una actividad concreta
+def actividadPlaya(actividad):
+    listado = list()
+
+    url = requests.get(url='https://apirtod.dipucadiz.es/api/datos/playas.json')
+
+    string_data = json.dumps(url.json())
+    decode = json.loads(string_data)
+
+    playas = decode['resources']
+
+    for indice in range(0, int(decode['summary']['items']), 1):
+        nombre = playas[indice]['ca:nombre']
+        municipio = playas[indice]['ca:municipio']
+        gps = "[" + playas[indice]['ca:coord_latitud'] + "," + playas[indice]['ca:coord_longitud'] + "]"
+        usos = playas[indice]['ca:usos']
+
+        if usos != "Sin información relevante":
+            usos = str(usos).replace('.', ',')                                                                          #Con estas lineas dejamos separadas las distintas actividades de cada playa
+            usos = str(usos).replace('y', ',')
+            usos = str(usos).split(',')
+            usosMayus = str(usos).upper()
+            actividadMayus = str(actividad).upper()
+
+            if str(usosMayus).find(actividadMayus) > 0:
+                listado.append(nombre)
+
+    return listado
+
+
 #Función que determina cual es la mejor playa para el usuario
 def calcularPlaya(origen, actividad):
 
@@ -28,7 +84,9 @@ def calcularPlaya(origen, actividad):
     poblacion = limpiezCaracteres(origen)
 
     gpsPoblacion = laRuta.sitioCoordenadas(poblacion)
-    maxPuntuacionTiempo = {"cod": 0, "puntuacion": 0, "GPS": "", "poblacion": gpsPoblacion, "KM": 0, "horas": 0, "minutos": 0}
+    maxPuntuacion = {"cod": 0, "puntuacion": 0, "GPS": "",
+                           "poblacion": gpsPoblacion, "KM": 0, "horas": 0, "minutos": 0,
+                           "error": ""}
 
     if actividad == "":                                                                                                 #Si el usuario no ha especificado ningun tipo de actividad
         results = []
@@ -43,38 +101,39 @@ def calcularPlaya(origen, actividad):
                 if row['Población'] == poblacion:                                                                       #Comrpobamos si el usuario se encuentra en una localidad con playa
                     poblacionPlaya = True
                     codAEMET = row['AEMET']
-
-                    if str(codAEMET).isnumeric():                                                                       #Obtenemos la calificación del tiempo de esa playa
-                        puntuacion = elTiempo.situacionPlaya(codAEMET)
-                        if maxPuntuacionTiempo['puntuacion'] < puntuacion:                                              #En el caso de tener una puntuación mayor sera la elegida
-                            maxPuntuacionTiempo['cod'] = codAEMET
-                            maxPuntuacionTiempo['puntuacion'] = puntuacion
-                            maxPuntuacionTiempo['GPS'] = row['GPS']
-                            ruta = laRuta.tiempoDistanciaRuta(gpsPoblacion,json.loads(row['GPS']))
-                            maxPuntuacionTiempo['horas'] = ruta['tiempo']['horas']
-                            maxPuntuacionTiempo['minutos'] = ruta['tiempo']['minutos']
-                            maxPuntuacionTiempo['KM'] = ruta['distancia']
+                    maxPuntuacion = puntuacionAEMET(row, maxPuntuacion, gpsPoblacion)
 
         if poblacionPlaya is False:
+            distanciaMenor = 2000
             with open(csvArchivo) as File:                                                                              # Abrimos nuestro fichero CSV guardado en local con los datos "estaticos"
                 reader = csv.DictReader(File)
 
                 for row in reader:                                                                                      # Vamos tratando la información del fichero por linea
                     results.append(row)
-                    codAEMET = row['AEMET']
+                    distancia = abs(abs(gpsPoblacion[0]) - abs(transformacionCoordenadar(row['GPS'])[0])) + \
+                                abs(abs(gpsPoblacion[1]) - abs(transformacionCoordenadar(row['GPS'])[1]))               #Calculamos la distancia de todas las playas respecto a la localidad
 
+                    if distancia < distanciaMenor:                                                                      #Se recomendará la playa mas cercana a la localidad
+                        maxPuntuacion['cod'] = row['AEMET']
+                        maxPuntuacion['GPS'] = transformacionCoordenadar(row['GPS'])
+                        distanciaMenor = distancia
 
-                    if str(codAEMET).isnumeric():                                                                       # Obtenemos la calificación del tiempo de esa playa
-                        puntuacion = elTiempo.situacionPlaya(codAEMET)
-                        if maxPuntuacionTiempo[
-                            'puntuacion'] < puntuacion:                                                                 # En el caso de tener una puntuación mayor sera la elegida
-                            maxPuntuacionTiempo['cod'] = codAEMET
-                            maxPuntuacionTiempo['puntuacion'] = puntuacion
-                            maxPuntuacionTiempo['GPS'] = row['GPS']
-
-        #print(str(maxPuntuacionTiempo['cod'])+" "+str(maxPuntuacionTiempo['puntuacion'])+" "+str(maxPuntuacionTiempo['GPS']))
+            if maxPuntuacion['cod'] != '':
+                maxPuntuacion = puntuacionAEMET(row, maxPuntuacion,gpsPoblacion)
     else:
-        print(actividad)
+        results = []
+        playas = actividadPlaya(actividad)
+
+        with open(csvArchivo) as File:                                                                                  # Abrimos nuestro fichero CSV guardado en local con los datos "estaticos"
+            reader = csv.DictReader(File)
+
+            for row in reader:                                                                                          # Vamos tratando la información del fichero por linea
+                results.append(row)
+                if playas.count(row['Playa']):
+
+                    if row['AEMET'] != '':
+                        maxPuntuacionTiempo = puntuacionAEMET(row, maxPuntuacion, gpsPoblacion)
+
     print(maxPuntuacionTiempo)
 
 def mostrarplaya(nombre):
@@ -92,6 +151,6 @@ def mostrarplaya(nombre):
             gps = "["+ playas[indice]['ca:coord_latitud']+","+ playas[indice]['ca:coord_longitud']+"]"
             usos = playas[indice]['ca:usos']
 
-        print(municipio + ";" + nombre + ";" + gps+ ";" + usos)
+        print(municipio + ";" + nombre + ";" + gps + ";" + usos)
 
     return
