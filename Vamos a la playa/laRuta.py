@@ -2,7 +2,7 @@
 import json
 import requests
 
-API_KEY = '5b3ce3597851110001cf6248e3895e67daf9425ba50b55fb0df395d6'                                                    #Key de la API
+API_KEY = '5b3ce3597851110001cf624833c10ecb4a2e450d90e0e6be1dca7c31'                                                    #Key de la API
 
 
 #Indicandole el nombre de una población devuelve la posición gps de la misma(SOLO PROVINCIA DE CÁDIZ)
@@ -23,10 +23,10 @@ def sitioCoordenadas(sitio):
     string_data = json.dumps(call.json())
     decode = json.loads(string_data)
 
-    gps = "["+str(decode['features'][0]['geometry']['coordinates'][1])+", "\
-          +str(decode['features'][0]['geometry']['coordinates'][0])+"]"
+    gps = "["+str(decode['features'][0]['geometry']['coordinates'][0])+", "\
+          +str(decode['features'][0]['geometry']['coordinates'][1])+"]"
 
-    if str(gps) == '[36.55139, -5.883249]':                                                                           #Cuando no encuentra la localidad solicitada siempre retorna esta posición, la cual devuelve como error
+    if str(gps) == '[-5.883249, 36.55139]':                                                                           #Cuando no encuentra la localidad solicitada siempre retorna esta posición, la cual devuelve como error
         return "no se ha encontrado la población"
     else:
         return json.loads(gps)
@@ -47,15 +47,19 @@ def tiempoDistanciaRuta(origen, destino):
 
     #print(call.text)
 
-    tiemoDistancia = json.dumps(call.json())
-    datosTiempoDistancia = json.loads(tiemoDistancia)
+    tiempoDistancia = json.dumps(call.json())
+    datosTiempoDistancia = json.loads(tiempoDistancia)
 
-    tiempo = datosTiempoDistancia['durations'][0][1]
-    horas = int(tiempo/3600)
-    minutos = int(tiempo/60)
+    distancia = datosTiempoDistancia['distances'][0][1]
 
+    if distancia is not None:
+        tiempo = datosTiempoDistancia['durations'][0][1]
+        horas = int(tiempo/3600)
+        minutos = int(tiempo/60)
 
-    #print("Población: " + str(poblacion))
-    #print("Playa: " + str(playa))
+        #print("Población: " + str(poblacion))
+        #print("Playa: " + str(playa))
 
-    return {"distancia": distancia, "tiempo": {"horas": horas, "minutos": minutos}}
+        return {"error": "", "distancia": distancia, "tiempo": {"horas": horas, "minutos": minutos}}
+    else:
+        return {"error": " batería baja en el GPS.", "distancia": 0, "tiempo": {"horas": 0, "minutos": 0}}
