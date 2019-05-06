@@ -1,0 +1,85 @@
+\documentclass[a4paper,11pt]{article}
+%\documentclass[a4paper,10pt]{scrartcl}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage[breaklinks=true]{hyperref} 
+
+\title{Documentación del proyecto 'Vamos a la Playa'}
+\author{Ignacio Jordi Güeto Matavera}
+\date{\today}
+
+\lstdefinestyle{abaqusPython}{
+        language=python,
+		% Palabras clave extra
+        morekeywords={CONTINUOUS,NUMBER,MESH,par,name,ParStudy,
+		template,define,sample,combine, generate},
+		% Delimitadores extra, s porque hay uno a cada lado
+        moredelim=[s][\ttfamily\color{magenta}]{<}{>},
+}
+
+\pdfinfo{%
+  /Title    (Documentación del proyecto 'Vamos a la Playa')
+  /Author   (Ignacio y Jordi Güeto Matavera)
+  /Creator  (Ignacio y Jordi Güeto Matavera)
+  /Producer (Ignacio y Jordi Güeto Matavera)
+  /Subject  (Trabajo de la asignatura de Sistemas Distribuidos)
+}
+
+\begin{document}
+    \begin{titlepage}
+	\centering
+	{\scshape\LARGE Universidad de Cádiz \par}
+	\vspace{1cm}
+	{\scshape\Large Trabajo de Sistemas Distribuidos\par}
+	\vspace{1.5cm}
+	{\huge\bfseries Vamos a la Playa\par}
+	\vspace{2cm}
+	{\Large\itshape Ignacio\par}
+	{\Large\itshape Jordi Güeto Matavera\par}
+	\vfill
+        % Bottom of the page
+	{\large \today\par}
+    \end{titlepage}
+    \tableofcontents % indice de contenidos
+    \newpage
+    \section{Introducción}
+    \paragraph{}
+    El proyecto que aquí se presenta, es un trabajo realizado para la asignatura de Sistemas Distribuidos de la Universidad de Cádiz en el Grado de Ingeniería Informática. Dicho proyecto consiste en aprovechar los recursos de la AEMET(Agencia Estatal de Meteorología) junto con la información que publica la Diputación de Cádiz respecto a la playas de la provincia, para promocionar las mismas por medio de Twitter y facilitando al usuario información extra con la distancia y el tiempo aproximado de llegada a la misma.
+    \paragraph{}
+    Todas las APIs utilizadas son gratuitas con las correspondientes restricciones, pudiendo generar en ocasiones denegaciones de servicio, debido a alcanzar los limites máximos ofrecidos por los distintos servicios, recordamos que son tres APIs diferentes utilizadas, AEMET, Open Route Service y datos.gob.es de donde se obtiene la información facilitada por la Diputación de Cádiz.
+    
+    \section{Tecnologías utilizadas}
+    \paragraph{}
+    El funcionamiento y existencia del proyecto es una relación directa con las distintas Tecnologías utilizadas para su construcción 
+    \subsection{Lenguaje de programación}
+    El lenguaje de programación utilizado para este proyecto ha sido Python, el mismo ha sido elegido por la facilidad de programación que tiene este lenguaje, siendo mas flexible en el tratamiento de datos y variables. Otra de las características que ha hecho decantarnos por este lenguaje ha sido la gran cantidad de librerías disponibles que hay para las distintas APIs, la gran comunidad que da respaldo desde hace ya un tiempo considerable facilita la resolución rápida de dudas o problemas en el código.
+    \subsection{APIs}
+    Como ya ha sido mencionado el proyecto tienen su razón de ser con la información obtenida por medio de varias APIs que pasamos a detallar a continuación:
+    \begin{itemize}
+        \item \textbf{Agencia Estatal de Meteorología (AEMET) :} La API de esta agencia nos ofrece toda la información meteorológica de distintas zonas del territorio nacional, aunque a nosotros solos nos interesa concretamente de la zona de Cádiz y en especial las playas que hay en su costa. Con ello podemos ampliar la información que facilitarle al usuario respecto a la playa que se le recomienda, aunque no tenemos dicha información para el amplio catalogo que dispone la Diputación de Cádiz, si hay información de la misma para cada uno de los municipios con costa, por lo que las playas adyacentes no deben distar mucho de situación meteorológica de la que si se tienen datos.
+        \item \textbf{Open Route Service :} El servicio ofrecido de esta API se centra en obtener la posición de coordenadas del usuario(aunque ya se explicará mas adelante en el proyecto, el usuario solo facilita el nombre de la población en la que se encuentra), esta posición se obtiene buscando el centro de la población en la que se encuentra(esto se ha decidido hacer por preservar la privacidad de los datos del mismo). Una vez posicionado en alguna población de la provincia, se le pasa al servicio la posición de la Playa obtenida de los datos facilitados por la Diputación de Cádiz, esto nos retornará la distancia del camino hasta la playa y el tiempo aproximado que se tarda en llegar.
+        \item \textbf{datos.gob.es :} Aunque se ha incluido en este apartado no se hace un uso realmente de API, ya que la API de este servicio es para buscar información de forma generalizada por todas las administraciones públicas, aunque se ha utilizado para encontrar y llegar a esta información. Por medio de este servicio se ha detectado la ruta de acceso directa a la información formateada en diferentes tipos, el que se ha utilizado en nuestro caso ha sido JSON, por su fácil estructuración y acceso a los datos.
+    \end{itemize}
+    \subsection{Tratamiento de los datos}
+    Las distintas Tecnologías utilizadas para el tratamiento de datos dentro del proyecto han sido:
+    \begin{itemize}
+        \item \textbf{JSON :} En lineas anteriores ya se ha comentado el lenguaje de programación elegido, que en este caso es Python, dentro de este lenguaje las estructuras de datos que se han obtenido de las distintas APIs han sido cadenas de tipo JSON, incluso para la comunicación interna de las funciones de la aplicación.
+        \item \textbf{CSV :} Por hacer un poco menos dependiente el proyecto se ha generado un fichero CSV de forma local que almacena información cruzada de la API de la AEMET y de la Diputación de Cádiz, la cual no es información que vaya a cambiar en el tiempo(al menos a corto plazo). Dicho fichero se ha generado de forma manual, pero en futuras versiones se puede generar de forma automática una vez al mes por si hubiera cambios que pudieran afectar al correcto funcionamiento de la aplicación.
+    \end{itemize}
+    \section{Código}
+    \paragraph{}
+    El siguiente apartado se mostrará el código de los distintos ficheros y se hará una pequeña descripción de los mismos, ya que se encuentran comentados y por lo tanto hacer un seguimiento en el funcionamiento de los mismos.
+    \subsection{laRuta.py}
+
+
+
+    
+    
+    \subsection{subsección1}
+    Ble ble ble
+    \subsubsection{subsubsección1}
+    Bli bli bli
+    \paragraph{párrafo1}
+    Blo blo blo
+\end{document}
