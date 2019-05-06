@@ -2,10 +2,10 @@ import tweepy
 import pika
 import send
 
-consumer_key = ""
-consumer_secret = ""
-access_token = ""
-access_token_secret = ""
+consumer_key = "nl4ly0geSaBJ7trxUH3DWMdsA"
+consumer_secret = "CaeFfuQ5VhmI7DQIQUKKKQrWQnzeVYw4YvrlIqrrXugxEjdUeu"
+access_token = "1115659042259525632-g3p9DNNYjx0iA4aSH53iLhYPhblHLi "
+access_token_secret = "I4gYxUZi6GIG9oqxEkjMruaxQUQmrcND2MgOaMzABDwWd"
 
 def autentificarTwitter():
     auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
@@ -16,8 +16,8 @@ def autentificarTwitter():
 class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
         channel = send.channel
-        print(status.text + "/" + status.author.screen_name)
-        if "peticionesOK" in status.text:
+        print(status.text + "-" + status.author.screen_name)
+        if " estoy en " in status.text and " y quiero hacer ":
             message = status.author.screen_name + "/" + status.text
             channel.basic_publish(exchange='', routing_key='peticionesOK', body=message)
         else:
@@ -33,7 +33,7 @@ def crearListener():
 def obtenerMencion(tweetRecibido):
     mencion = "@"
     i = 0
-    while tweetRecibido[i] != 'estoy en ':
+    while tweetRecibido[i] != '-':
         mencion = mencion + tweetRecibido[i]
         i = i + 1
     return mencion

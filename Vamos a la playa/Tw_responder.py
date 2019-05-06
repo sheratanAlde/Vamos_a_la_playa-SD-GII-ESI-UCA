@@ -1,28 +1,26 @@
 import tweepy
-import Tw_lector
-#import urllib2
+import tw_lector
+import laPlaya
 
 def Tw_responder(tweetRecibido):
 
     mencion = Tw_lector.obtenerMencion(tweetRecibido)
 
-    estoy = tweetRecibido.split("estoy en ")[1]
+    estoy = tweetRecibido.split("-estoy en ")[1]
     estoy = estoy.split(" y quiero hacer")
     deporte = tweetRecibido.split(" y quiero hacer ")[1]
 
-    playaRecomendada = x(estoy,deporte)
-    ve_a=localizacion(playaRecomendada)
-
-    tiempoQueTarda = y(estoy,ve_a)
-    distanciaQueHay = z(estoy,ve_a)
-
-    viento(ve_a)
-    radiacion(ve_a)
-    cielo(ve_a)
-
-    tweet = mencion + " te recomendamos ir a " + playaRecomendada +
-    "(a " + tiempoQueTarda + " min " + distanciaQueHay + " - km) y las condiciones climatologicas son: +
-    " viento " + viento + " radiacion uv " + radiacion + "y está " + cielo 
+    tweet = mencion + calcularRespuesta(estoy,deporte)
 
     api = Tw_lector.autentificarTwitter()
     api.update_status(tweet)
+
+def calcularRespuesta(sitio, actividad):
+
+    try:
+        mensaje = laPlaya.calcularPlaya(sitio, actividad)
+    except:
+        mensaje = "perdona, ahora estamos tomando el sol, prueba mas tarde."
+
+    #print("Mi funcion" + mensaje)
+    return mensaje

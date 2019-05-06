@@ -11,7 +11,7 @@ if __name__ == "__main__":
         channel.queue_declare(queue='error')
 
 
-        twitterStream = LectorTwitter.crearListener()
+        twitterStream = Tw_lector.crearListener()
         twitterStream.filter(track=["@Go_to_the_beach"])
 
         print(" [x] Sent %r" % message)
