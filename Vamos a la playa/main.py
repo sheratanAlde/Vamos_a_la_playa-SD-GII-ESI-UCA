@@ -15,7 +15,7 @@ def calcularRespuesta(sitio, actividad):
 
 if __name__ == "__main__":
 
-    sitio = "Benalup"
+    sitio = "Puerto Real"
     actividad = "piragüismo"
 
     respuestaTwitter = calcularRespuesta(sitio, actividad)
