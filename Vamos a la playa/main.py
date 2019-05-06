@@ -1,34 +1,20 @@
-import elTiempo
 import laPlaya
-import laRuta
 
 
 def calcularRespuesta(sitio, actividad):
-    mensaje = "perdona, ahora estamos tomando el sol, prueba mas tarde."
 
-    posPlaya = laPlaya.calcularPlaya(sitio, actividad)
+    try:
+        mensaje = laPlaya.calcularPlaya(sitio, actividad)
+    except:
+        mensaje = "perdona, ahora estamos tomando el sol, prueba mas tarde."
 
-    # mensaje = mensaje + laRuta.tiempoDistanciaRuta(posPoblacion,posPlaya)
-
+    #print("Mi funcion" + mensaje)
     return mensaje
 
 
 if __name__ == "__main__":
 
-    sitio = "Puerto Real"
-    actividad = "piragüismo"
+    sitio = "Tarifa"
+    actividad = ""
 
     respuestaTwitter = calcularRespuesta(sitio, actividad)
-
-    # print(respuestaTwitter)
-    #
-    #
-    # # dato = elTiempo.infoPlaya(1101203)
-    # # print(dato)
-    #
-    # #elTiempo.infoPlaya(1101203)
-    # laPlaya.datosPlaya()
-    # try:
-    #     print(laRuta.tiempoDistanciaRuta("San Fernando","El Carmen"))
-    # except:
-    #     print("el GPS esta recalculando")

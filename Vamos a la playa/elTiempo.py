@@ -85,11 +85,11 @@ def situacionPlaya(codPlaya):
     datosActual = decode['prediccion']['dia'][0]
 
     if ahora.hour > 13:                                                                                                 #Según la franja horaria en la que nos encontremos mirara el dato de por la mañana o por la tarde
-        cielo = datosActual['estadoCielo']['descripcion2']
+        #cielo = datosActual['estadoCielo']['descripcion2']
         viento = datosActual['viento']['descripcion2']
         oleaje = datosActual['oleaje']['descripcion2']
     else:
-        cielo = datosActual['estadoCielo']['descripcion1']
+        #cielo = datosActual['estadoCielo']['descripcion1']
         viento = datosActual['viento']['descripcion1']
         oleaje = datosActual['oleaje']['descripcion1']
 
@@ -108,29 +108,25 @@ def situacionPlaya(codPlaya):
 
 def infoPlaya(cod):
     aemet = Aemet()
+    ahora = datetime.now()
     playa = aemet.get_prediccion_especifica_playa(cod)
     data_string = json.dumps(playa)
     decode = json.loads(data_string)
     datosActual = decode['prediccion']['dia'][0]
 
-    # if hora > 14  en 24
+    if ahora.hour > 13:                                                                                                 # Según la franja horaria en la que nos encontremos mirara el dato de por la mañana o por la tarde
+        cielo = datosActual['estadoCielo']['descripcion2']
+        viento = datosActual['viento']['descripcion2']
+        #oleaje = datosActual['oleaje']['descripcion2']
+    else:
+        cielo = datosActual['estadoCielo']['descripcion1']
+        viento = datosActual['viento']['descripcion1']
+        #oleaje = datosActual['oleaje']['descripcion1']
 
-    #else
-    cielo = datosActual['estadoCielo']['descripcion2']
-    viento = datosActual['viento']['descripcion2']
-    oleaje = datosActual['oleaje']['descripcion2']
-
-    temperaturaMaxima = datosActual['tMaxima']['valor1']
+    #temperaturaMaxima = datosActual['tMaxima']['valor1']
     sensacionTermica = datosActual['sTermica']['descripcion1']
-    temperaturaAgua = datosActual['tAgua']['valor1']
+    #temperaturaAgua = datosActual['tAgua']['valor1']
     indiceUv = datosActual['uvMax']['valor1']
 
-    print("EL cielo esta " + cielo + " con un viento " + viento + ", por lo que el oleaje es " + oleaje + ", la temperatura es de "
-          + str(temperaturaMaxima) + ", mientras que la sensación termica es " + str(sensacionTermica) + " y la temperatura del agua "
-          + str(temperaturaAgua) + ", pero cuidado que el indice UV es de " + str(indiceUv) + ".")
-
-
-# str | Código de playa http://www.aemet.es/documentos/es/eltiempo/prediccion/playas/Playas_codigos.csv
-#https://python-para-impacientes.blogspot.com/2014/02/operaciones-con-fechas-y-horas.html
-#http://jsonviewer.stack.hu/
-#http://www.aemet.es/es/eltiempo/prediccion/playas/la-victoria-1101203
+    return "y hay una previsión de viento " + viento + " con el cielo " + cielo + "," \
+           " con una sensación de " + str(sensacionTermica) + " y el indice UV es de " + str(indiceUv) + "."

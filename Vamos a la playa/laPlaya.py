@@ -135,13 +135,17 @@ def calcularPlaya(origen, actividad):
 
                     if row['AEMET'] != '':
                         maxPuntuacion['nombre'] = row['Playa']
-                        maxPuntuacionTiempo = puntuacionAEMET(row, maxPuntuacion, gpsPoblacion)
+                        maxPuntuacion = puntuacionAEMET(row, maxPuntuacion, gpsPoblacion)
 
-    print(maxPuntuacionTiempo)
+    print(maxPuntuacion)
 
     tiempoDistancia = "(a "
     if maxPuntuacion['horas'] != 0:
         tiempoDistancia += str(maxPuntuacion['horas'])+" H y "
     tiempoDistancia+= str(maxPuntuacion['minutos'])+" min, "+str(maxPuntuacion['KM'])+" km)"
 
-    print("la mas cercana a tu ubicación es "+maxPuntuacion['nombre']+tiempoDistancia+", con un tiempo ")
+    respuesta = "la mas cercana a tu ubicación es "+maxPuntuacion['nombre']+tiempoDistancia
+    if maxPuntuacion['cod'] != '':
+        respuesta += " "+elTiempo.infoPlaya(maxPuntuacion['cod'])+""
+
+    return respuesta
